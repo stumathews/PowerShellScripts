@@ -8,13 +8,9 @@
 }
 
 function swapinbaduser( $username )
-{
-    Write-Host "* Switching in user, $username ..."
-    $null = & "C:\Program Files (x86)\Citrix\CtxCredApiSample.exe" -l -u $username -p citrix -d xa.local
-    dropAuth 
-    Start-Sleep -s 3
-    logoff -username $username
-
+{   
+    Write-host "Logged in as Non-VDA user(no creds)" -ForegroundColor Red
+    $test = Read-Host "Continue?"
 }
 
 function dropAuth()
@@ -46,7 +42,14 @@ function doFullSwap($username)
     simulateWorkstationLock -secs 1
 }
 
-#logoff
+function FirstTimeLogOff()
+{
+    Write-Host "Performing first-time logoff" -ForegroundColor Yellow
+    logoff
+}
+
+
+#FirstTimeLogOff
 
 $array = 1..20
 
@@ -55,17 +58,19 @@ foreach( $i in $array )
  
     doFullSwap -username "user2"
  
-     
-    
-    #Write-host "# 20 apps"
-    #swapinuser -username "user4"
-    #logoff
-
-    #$done = Read-host "Are you ready"
-
     doFullSwap -username "user8"
-     
     
+    
+    if ( [bool]!($i%2) )
+    {  
+        swapinbaduser -username "bad" 
+    }
+    
+    
+    
+        
+}
+
 
     #$done = Read-host "Are you ready"
 
@@ -107,19 +112,4 @@ foreach( $i in $array )
     logoff
     
     #>
-
-    <#
-    if ( [bool]!($i%2) )
-    {
-        Write-Host "###Inserting bad creds##"
-       
-        swapinbaduser -username "bad" 
-        $done = Read-host "Bad creds why and what do you want to do?"        
-       
-    }
-    #>
-    
-    
-        
-}
 
