@@ -32,12 +32,14 @@ function swapinbaduser( $username )
 
 function dropAuth()
 {
-    $null = & "C:\Program Files (x86)\Citrix\SelfServicePlugin\SelfService.exe" -terminate
+    #$null = & "C:\Program Files (x86)\Citrix\SelfServicePlugin\SelfService.exe" -terminate
+    $null = & "d:\\SelfService.exe" -terminate
 }
 
 function ipoll()
 {    
-    $null = & "C:\Program Files (x86)\Citrix\SelfServicePlugin\SelfService.exe" -ipoll
+    $null = & "d:\SelfService.exe" -ipoll
+    #$null = & "C:\Program Files (x86)\Citrix\SelfServicePlugin\SelfService.exe" -ipoll
     #Write-Host "* Interactive poll started. Expecting to wait until this is done."
 }
 
